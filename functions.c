@@ -285,7 +285,7 @@ void FUNCTION_Select(function_type_t Function)
 	
 						#ifdef ENABLE_MDC1200_SIDE_BEEP
 							BK4819_start_tone(880, 10, true, true);
-							SYSTEM_DelayMs(120); //controls how long to wait before ready to talk beep happens, you probably dont want to play with this :)
+							SYSTEM_DelayMs(110); //controls how long the beep happens for, you probably dont want to tweak this ;)
 							BK4819_stop_tones(true);
 						#endif
 					}
