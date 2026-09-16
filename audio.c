@@ -96,6 +96,20 @@ void AUDIO_PlayBeep(beep_type_t Beep)
 //	const uint16_t af_val   = BK4819_read_reg(0x47);
 	uint16_t       ToneFrequency;
 	uint16_t       Duration;
+	
+	if (Beep == BEEP_880HZ_200MS) {
+		AUDIO_ToggleAudioPath(true);
+		
+		BK4819_play_tone(1569, 40, false);
+		BK4819_play_tone(1046, 40, false);
+		BK4819_play_tone(1569, 40, false);
+		BK4819_play_tone(1317, 40, false);
+		
+		SYSTEM_DelayMs(160);
+		
+		BK4819_turns_off_tone1();
+		return;
+	}
 
 	if (g_eeprom.config.setting.beep_control == 0)
 	{	// beep not enabled
