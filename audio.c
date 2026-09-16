@@ -98,21 +98,21 @@ void AUDIO_PlayBeep(beep_type_t Beep)
 	uint16_t       Duration;
 	
 	if (Beep == BEEP_880HZ_200MS) {
-		AUDIO_ToggleAudioPath(true);
-		
-		BK4819_play_tone(1569, 40, false);
-		BK4819_play_tone(1046, 40, false);
-		BK4819_play_tone(1569, 40, false);
-		BK4819_play_tone(1317, 40, false);
-		
-		SYSTEM_DelayMs(160);
-		
-		BK4819_turns_off_tone1();
+		BK4819_SetAF(BK4819_AF_BEEP);
+		BK4819_start_tone(1569, 40, false, true);
+		SYSTEM_DelayMs(40);
+		BK4819_start_tone(1046, 40, false, true);
+		SYSTEM_DelayMs(40);
+		BK4819_start_tone(1569, 40, false, true);
+		SYSTEM_DelayMs(40);
+		BK4819_start_tone(1317, 40, false, true);
+		SYSTEM_DelayMs(40);
+		BK4819_stop_tones(false);
 		return;
 	}
 
 	if (g_eeprom.config.setting.beep_control == 0)
-	{	// beep not enabled
+	{ // beep not enabled
 		if (Beep != BEEP_880HZ_60MS_TRIPLE_BEEP &&
 			Beep != BEEP_500HZ_60MS_DOUBLE_BEEP &&
 			Beep != BEEP_440HZ_500MS &&
@@ -305,7 +305,7 @@ void AUDIO_PlayBeep(beep_type_t Beep)
 			goto Bailout;
 
 		if (g_eeprom.config.setting.voice_prompt == VOICE_PROMPT_CHINESE)
-		{	// Chinese
+		{ // Chinese
 			if (VoiceID >= ARRAY_SIZE(VoiceClipLengthChinese))
 				goto Bailout;
 
@@ -313,7 +313,7 @@ void AUDIO_PlayBeep(beep_type_t Beep)
 			VoiceID += VOICE_ID_CHI_BASE;
 		}
 		else
-		{	// English
+		{ // English
 			if (VoiceID >= ARRAY_SIZE(VoiceClipLengthEnglish))
 				goto Bailout;
 
