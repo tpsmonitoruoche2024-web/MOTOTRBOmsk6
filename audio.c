@@ -100,13 +100,9 @@ void AUDIO_PlayBeep(beep_type_t Beep)
 	if (Beep == BEEP_880HZ_200MS) {
 		BK4819_SetAF(BK4819_AF_BEEP);
 		BK4819_start_tone(1569, 40, false, true);
-		SYSTEM_DelayMs(40);
 		BK4819_start_tone(1046, 40, false, true);
-		SYSTEM_DelayMs(40);
 		BK4819_start_tone(1569, 40, false, true);
-		SYSTEM_DelayMs(40);
 		BK4819_start_tone(1317, 40, false, true);
-		SYSTEM_DelayMs(40);
 		BK4819_stop_tones(false);
 		return;
 	}
